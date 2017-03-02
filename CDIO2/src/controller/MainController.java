@@ -18,9 +18,13 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
+	private double weight;
+	private String input;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
+		weight = 0;
+		input = "";
 	}
 
 	@Override
@@ -34,10 +38,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		if (socketHandler!=null && weightController!=null){
 			//Makes this controller interested in messages from the socket
 			socketHandler.registerObserver(this);
+			
 			//Starts socketHandler in own thread
 			new Thread(socketHandler).start();
-			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
 
+			//Starts weightController in own thread
+			new Thread(weightController).start();
 
 		} else {
 			System.err.println("No controllers injected!");
