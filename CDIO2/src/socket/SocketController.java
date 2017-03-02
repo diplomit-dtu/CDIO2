@@ -74,7 +74,7 @@ public class SocketController implements ISocketController {
 				switch (cmd) {
 				case "RM20": // Display a message in the secondary display and wait for response
 					//TODO implement logic for RM command
-					
+
 					//Special Type
 					responseType = null;
 
@@ -122,7 +122,7 @@ public class SocketController implements ISocketController {
 				case "T": // Tare the weight
 					//TODO implement
 					notifyObservers(new SocketInMessage(SocketMessageType.T, ""));
-					
+
 					//Special type
 					responseType = " S";
 
@@ -130,7 +130,7 @@ public class SocketController implements ISocketController {
 				case "S": // Request the current load
 					//TODO implement
 					notifyObservers(new SocketInMessage(SocketMessageType.S, ""));
-					
+
 					//Special type
 					responseType = " S";
 
