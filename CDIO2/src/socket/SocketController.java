@@ -105,10 +105,10 @@ public class SocketController implements ISocketController {
 					//TODO implement
 
 					if(inLine.split(" ").length > 1 && !(commandLine[1].isEmpty()) 
-							&& commandLine[1].length() <= 30){
+							&& commandLine[1].length() <= 32){
 
-						String displayMessage = commandLine[1].replace('"', '#');
-						displayMessage = displayMessage.split("#")[1];
+						String displayMessage = commandLine[1].split("\"")[1];
+						//displayMessage = displayMessage.split("#")[1];
 
 						System.out.println("The GUI shall display : " + '"' + displayMessage + '"');
 
