@@ -101,7 +101,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
-		//TODO implement logic for handling input from ui
+		//FIXME Ting vi har lavet er her
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
 			//We dont know what to implement here
@@ -137,6 +137,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	}
 
 	@Override
+    //FIXME også noget vi har lavet her
 	public void notifyWeightChange(double newWeight) {
 	    weightCurrent = newWeight;
 		weightController.showMessagePrimaryDisplay(""+(weightCurrent-tara));
