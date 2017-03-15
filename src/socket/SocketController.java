@@ -30,7 +30,7 @@ public class SocketController implements ISocketController {
 
 	@Override
 	public void sendMessage(SocketOutMessage message) {
-		if (outStream!=null){
+		if (outStream!= null){
 			//TODO send something over the socket! 
 		} else {
 			//TODO maybe tell someone that connection is closed?

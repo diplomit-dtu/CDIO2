@@ -26,12 +26,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void init(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.socketHandler = socketHandler;
-		this.weightController=weightInterfaceController;
+		this.weightController = weightInterfaceController;
 	}
 
 	@Override
 	public void start() {
-		if (socketHandler!=null && weightController!=null){
+		if (socketHandler!=null && weightController!=null) {
 			//Makes this controller interested in messages from the socket
 			socketHandler.registerObserver(this);
 			//Starts socketHandler in own thread
@@ -39,7 +39,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			//FIXME (Måske jeg har lavet det) set up weightController - Look above for inspiration (Keep it simple ;))
             weightController.registerObserver(this);
 			new Thread(weightController).start();
-
 		} else {
 			System.err.println("No controllers injected!");
 		}
@@ -72,7 +71,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case P111:
 			break;
 		}
-
 	}
 
 	private void handleKMessage(SocketInMessage message) {
@@ -112,18 +110,15 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case EXIT:
 			break;
 		case SEND:
-			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
+			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ) {
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
 			break;
 		}
-
 	}
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		// TODO Auto-generated method stub
-
 	}
-
 }
