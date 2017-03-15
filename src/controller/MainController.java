@@ -18,6 +18,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
+	//Things for UI controller
+	private int i=0;
+	private String text ="";
+	private char[] a = new char[30];
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.init(socketHandler, weightInterfaceController);
@@ -100,16 +104,27 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
+			//We dont know what to implement here
 			break;
 		case TARA:
 			break;
 		case TEXT:
+			a[i]=keyPress.getCharacter();
+			text += a[i];
+			i++;
+			weightController.showMessageSecondaryDisplay(text);
 			break;
 		case ZERO:
+			notifyWeightChange(0.0);
 			break;
 		case C:
+			//You havent implementet a method in KeyPress that returns C?
+			i=0;
+			text="0";
+			weightController.showMessageSecondaryDisplay(text);
 			break;
 		case EXIT:
+			System.exit(1);
 			break;
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
@@ -122,8 +137,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
-		// TODO Auto-generated method stub
-
+		weightController.showMessagePrimaryDisplay(""+newWeight);
 	}
 
 }
