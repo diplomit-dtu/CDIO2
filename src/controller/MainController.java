@@ -22,6 +22,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private int i=0;
 	private String text ="";
 	private char[] a = new char[30];
+	private double tara = 0.0;
+	private double weightCurrent = 0.0;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.init(socketHandler, weightInterfaceController);
@@ -105,6 +107,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			//We dont know what to implement here
 			break;
 		case TARA:
+            tara = weightCurrent;
+            notifyWeightChange(tara);
 			break;
 		case TEXT:
 			a[i]=keyPress.getCharacter();
@@ -113,12 +117,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			weightController.showMessageSecondaryDisplay(text);
 			break;
 		case ZERO:
+		    tara = 0.0;
 			notifyWeightChange(0.0);
 			break;
 		case C:
-			//You havent implementet a method in KeyPress that returns C?
 			i=0;
-			text="0";
+			text="";
 			weightController.showMessageSecondaryDisplay(text);
 			break;
 		case EXIT:
@@ -134,6 +138,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
-		weightController.showMessagePrimaryDisplay(""+newWeight);
+	    weightCurrent = newWeight;
+		weightController.showMessagePrimaryDisplay(""+(weightCurrent-tara));
 	}
 }
