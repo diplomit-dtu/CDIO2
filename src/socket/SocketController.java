@@ -100,6 +100,7 @@ public class SocketController implements ISocketController {
 				case "K":
 					if (inLine.split(" ").length>1){
 						notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
+						sendMessage(new SocketOutMessage("OK"));
 					}
 					break;
 				case "B": // Set the load
