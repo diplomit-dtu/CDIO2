@@ -55,19 +55,25 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(Double.parseDouble(message.getMessage()));
 			break;
 		case D:
 			weightController.showMessagePrimaryDisplay(message.getMessage()); 
 			break;
 		case Q:
+			System.exit(1);
 			break;
 		case RM204:
 			break;
 		case RM208:
+			weightController.showMessageSecondaryDisplay(message.getMessage());
 			break;
 		case S:
+			socketHandler.sendMessage(new SocketOutMessage(""+weightCurrent));
 			break;
 		case T:
+			tara = weightCurrent;
+			notifyWeightChange(tara);
 			break;
 		case DW:
 			break;
@@ -75,6 +81,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			handleKMessage(message);
 			break;
 		case P111:
+			weightController.showMessageSecondaryDisplay(message.getMessage());
 			break;
 		}
 	}

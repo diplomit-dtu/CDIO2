@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sun.xml.internal.ws.encoding.soap.SOAP12Constants;
 import socket.SocketInMessage.SocketMessageType;
 
 public class SocketController implements ISocketController {
@@ -78,23 +79,24 @@ public class SocketController implements ISocketController {
 				if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
-					//TODO implement logic for RM command
+					notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.split(" ")[1]));
+					sendMessage(new SocketOutMessage("Wait for responce\n"));
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system
 					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
 					break;
 				case "DW": //Clear primary display
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.D, ""));
 					break;
 				case "P111": //Show something in secondary display
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));
 					break;
 				case "T": // Tare the weight
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.T, ""));
 					break;
 				case "S": // Request the current load
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.S,""));
 					break;
 				case "K":
 					if (inLine.split(" ").length>1){
@@ -102,13 +104,14 @@ public class SocketController implements ISocketController {
 					}
 					break;
 				case "B": // Set the load
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.B,inLine.split(" ")[1]));
 					break;
 				case "Q": // Quit
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.Q,""));
+					sendMessage(new SocketOutMessage("Goodbye"));
 					break;
 				default: //Something went wrong?
-					//TODO implement
+					sendMessage(new SocketOutMessage("ES"));
 					break;
 				}
 			}
