@@ -83,6 +83,7 @@ public class SocketController implements ISocketController {
 					break;
 				case "DW": //Clear primary display
 					notifyObservers(new SocketInMessage(SocketMessageType.D, ""));
+					sendMessage(new SocketOutMessage("Cleared primary display"));
 					break;
 				case "P111": //Show something in secondary display
 					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));

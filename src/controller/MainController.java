@@ -69,7 +69,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			weightController.showMessageSecondaryDisplay(message.getMessage());
 			break;
 		case S:
-			socketHandler.sendMessage(new SocketOutMessage(""+weightCurrent));
+			socketHandler.sendMessage(new SocketOutMessage(""+(weightCurrent-tara)));
 			break;
 		case T:
 			tara = weightCurrent;
