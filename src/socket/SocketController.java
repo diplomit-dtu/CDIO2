@@ -79,17 +79,20 @@ public class SocketController implements ISocketController {
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system
-					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
+					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1]));
+					sendMessage(new SocketOutMessage("Display Updated\n"));
 					break;
 				case "DW": //Clear primary display
 					notifyObservers(new SocketInMessage(SocketMessageType.D, ""));
-					sendMessage(new SocketOutMessage("Cleared primary display"));
+					sendMessage(new SocketOutMessage("Cleared primary display\n"));
 					break;
 				case "P111": //Show something in secondary display
 					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));
+					sendMessage(new SocketOutMessage("Message Displayed\n"));
 					break;
 				case "T": // Tare the weight
 					notifyObservers(new SocketInMessage(SocketMessageType.T, ""));
+					sendMessage(new SocketOutMessage("Weight tared"));
 					break;
 				case "S": // Request the current load
 					notifyObservers(new SocketInMessage(SocketMessageType.S,""));
@@ -101,6 +104,7 @@ public class SocketController implements ISocketController {
 					break;
 				case "B": // Set the load
 					notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.split(" ")[1]));
+					sendMessage(new SocketOutMessage("Load set"));
 					break;
 				case "Q": // Quit
 					notifyObservers(new SocketInMessage(SocketMessageType.Q,""));
