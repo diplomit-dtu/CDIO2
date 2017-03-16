@@ -32,12 +32,7 @@ public class SocketController implements ISocketController {
 	@Override
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
-			// FIXME sender til absolut adresse, skal afhænge af klient på en eller anden måde
 			try {
-				Socket clientSocket = new Socket("127.0.0.1", 8001);
-				inStream = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				outStream = new DataOutputStream(clientSocket.getOutputStream());
-
 				outStream.writeBytes(message.getMessage() + '\n');
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -104,7 +99,7 @@ public class SocketController implements ISocketController {
 					}
 					break;
 				case "B": // Set the load
-					notifyObservers(new SocketInMessage(SocketMessageType.B,inLine.split(" ")[1]));
+					notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.split(" ")[1]));
 					break;
 				case "Q": // Quit
 					notifyObservers(new SocketInMessage(SocketMessageType.Q,""));
