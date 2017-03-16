@@ -136,9 +136,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			System.exit(1);
 			break;
 		case SEND:
-			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ) {
-				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-			}
+			socketHandler.sendMessage(new SocketOutMessage(text));
 			break;
 		}
 	}
